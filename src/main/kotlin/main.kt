@@ -1,4 +1,9 @@
 fun main() {
+    try {
+        agoToText(-5)
+    } catch (err: Exception) {
+        println(err)
+    }
     for (i in 0..60) {
         println(agoToText(i * 60))
     }
@@ -9,8 +14,7 @@ fun main() {
 
 fun agoToText(seconds: Int): String {
     return "был(а) в сети " + when {
-        //тут бы неплохо еще обработать значение меньше 0, в java я бы выбросил exeption...
-        //поэтому пока тот, кто прислал меньше нуля, сам дурак и уйдет в else
+        seconds < 0 -> throw Exception("Значение не может быть меньше 0")
         seconds < 61 -> "только что"
         seconds < 60 * 60 + 1 -> "${secondsToMinutes(seconds)} назад"
         seconds < 60 * 60 * 24 + 1 -> "${secondsToHours(seconds)} назад"
